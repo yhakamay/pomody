@@ -15,10 +15,7 @@ class _HomePageState extends State<HomePage> {
   final _countdownController = CountDownController();
   final _duration = 25 * 60;
   final _size = 240.0;
-  final _textStyle = const TextStyle(
-    fontSize: 48,
-    fontWeight: FontWeight.bold,
-  );
+  final _textStyle = const TextStyle(fontSize: 48);
   int _pageIndex = 0;
   String _toolTip = 'Start';
   Icon _icon = const Icon(Icons.play_arrow_rounded);
