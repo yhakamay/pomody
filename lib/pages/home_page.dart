@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _HomePageState extends State<HomePage> {
     fontSize: 48,
     fontWeight: FontWeight.bold,
   );
+  int _pageIndex = 0;
   String _toolTip = 'Start';
   Icon _icon = const Icon(Icons.play_arrow_rounded);
 
@@ -30,44 +32,137 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Stack(
-        children: [
-          Center(
-            child: CircularCountDownTimer(
-              controller: _countdownController,
-              autoStart: false,
-              duration: _duration,
-              isReverse: true,
-              isReverseAnimation: true,
-              height: _size,
-              width: _size,
-              ringColor: _countdownController.isStarted
-                  ? Theme.of(context).primaryColor.withOpacity(0.1)
-                  : Theme.of(context).primaryColor,
-              fillColor: Theme.of(context).primaryColor,
-              strokeWidth: 12,
-              strokeCap: StrokeCap.round,
-              textStyle: _textStyle,
-              onStart: _onStart,
-              onComplete: _onComplete,
-            ),
+      appBar: AppBar(
+        title: const Text('pomodo'),
+      ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) => setState(() {
+          _pageIndex = index;
+        }),
+        selectedIndex: _pageIndex,
+        destinations: const [
+          NavigationDestination(
+            selectedIcon: Icon(Icons.timer_rounded),
+            icon: Icon(Icons.timer_outlined),
+            label: 'Timer',
           ),
-          Positioned(
-            bottom: 52,
-            right: 68,
-            child: OutlinedButton(
-              onPressed: _countdownController.isPaused ? _reset : null,
-              child: const Icon(Icons.restart_alt_rounded),
-            ),
-          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.settings_rounded),
+            icon: Icon(Icons.settings_outlined),
+            label: 'Settings',
+          )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onPressed,
-        tooltip: _toolTip,
-        child: _icon,
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: [
+        Center(
+          child: CircularCountDownTimer(
+            controller: _countdownController,
+            autoStart: false,
+            duration: _duration,
+            isReverse: true,
+            isReverseAnimation: true,
+            height: _size,
+            width: _size,
+            ringColor: _countdownController.isStarted
+                ? Theme.of(context).primaryColor.withOpacity(0.1)
+                : Theme.of(context).primaryColor,
+            fillColor: Theme.of(context).primaryColor,
+            strokeWidth: 12,
+            strokeCap: StrokeCap.round,
+            textStyle: _textStyle,
+            onStart: _onStart,
+            onComplete: _onComplete,
+          ),
+        ),
+        Column(
+          children: [
+            Center(
+              child: Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                ),
+                child: const SizedBox(
+                  width: 300,
+                  height: 100,
+                  child: Center(
+                    child: Text('Work duration'),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                ),
+                child: const SizedBox(
+                  width: 300,
+                  height: 100,
+                  child: Center(
+                    child: Text('Break duration'),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                ),
+                child: const SizedBox(
+                  width: 300,
+                  height: 100,
+                  child: Center(
+                    child: Text('Start break after work'),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ][_pageIndex],
+      floatingActionButton: _pageIndex == 0
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(width: 96),
+                FloatingActionButton(
+                  onPressed: _onPressed,
+                  tooltip: _toolTip,
+                  child: _icon,
+                ),
+                SizedBox(
+                  width: 96,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 24.0),
+                    child: OutlinedButton(
+                      onPressed: _countdownController.isPaused ? _reset : null,
+                      child: const Icon(Icons.restart_alt_rounded),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : FloatingActionButton.extended(
+              onPressed: () {
+                launchUrl(
+                  Uri.parse('https://github.com/yhakamay/pomodo/issues'),
+                );
+              },
+              label: const Text('Give Feedback'),
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -145,8 +240,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onStart() {
-    // Switch to dark theme
+    // Nothing is planned for now
   }
 
-  void _onComplete() {}
+  void _onComplete() {
+    // TODO: Show a snackbar & ring a sound
+  }
 }
