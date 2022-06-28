@@ -1,16 +1,5 @@
 # pomodo
 
-A new Flutter project.
+pomodo is a super simple timer that uses pomodoro-technique. 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://user-images.githubusercontent.com/65002858/176175757-daf6b98b-4e5f-4127-8fa4-151c56154ded.png" width="200" />
