@@ -1,7 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '../molecules/feedback_fab.dart';
 import '../organisms/settings.dart';
 
 class HomePage extends StatefulWidget {
@@ -97,14 +97,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             )
-          : FloatingActionButton.extended(
-              onPressed: () {
-                launchUrl(
-                  Uri.parse('https://github.com/yhakamay/pomodo/issues'),
-                );
-              },
-              label: const Text('Give Feedback'),
-            ),
+          : const FeedbackFAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
