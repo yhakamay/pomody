@@ -1,59 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../atoms/outlined_card.dart';
+import '../providers/timer_provider.dart';
 
-class BreakDurationCard extends StatelessWidget {
+class BreakDurationCard extends HookConsumerWidget {
   const BreakDurationCard({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final timer = ref.watch(timerProvider);
+
     return OutlinedCard(
       width: 300,
-      height: 120,
-      child: Column(
-        // TODO: Implement after break timer is implemented
-        mainAxisAlignment: MainAxisAlignment.center,
+      height: 72,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Break',
-            style: TextStyle(fontSize: 20),
+          const SizedBox(width: 8),
+          Text(
+            'Break session',
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 60,
-                child: OutlinedButton(
-                  onPressed: null,
-                  style: OutlinedButton.styleFrom(
-                    primary: Theme.of(context).colorScheme.error,
-                  ),
-                  child: const Icon(Icons.remove),
-                ),
-              ),
-              const SizedBox(
-                width: 120,
-                child: Center(
-                  child: Text(
-                    '${5 ~/ 60}',
-                    style: TextStyle(fontSize: 48),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 60,
-                child: OutlinedButton(
-                  onPressed: null,
-                  style: OutlinedButton.styleFrom(
-                    primary: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: const Icon(Icons.add),
-                ),
-              ),
+          const SizedBox(width: 16),
+          DropdownButton<int>(
+            value: timer.breakDuration ~/ 60,
+            items: const [
+              DropdownMenuItem(value: 5, child: Text('5 min')),
+              DropdownMenuItem(value: 10, child: Text('10 min')),
+              DropdownMenuItem(value: 15, child: Text('15 min')),
             ],
-          )
+            onChanged: (int? value) => timer.setBreakDuration(value! * 60),
+          ),
+          const SizedBox(width: 8),
         ],
       ),
     );
