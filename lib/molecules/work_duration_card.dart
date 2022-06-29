@@ -40,7 +40,7 @@ class WorkDurationCard extends HookConsumerWidget {
                 width: 120,
                 child: Center(
                   child: Text(
-                    '${timer.duration ~/ 60}',
+                    '${timer.workDuration ~/ 60}',
                     style: const TextStyle(fontSize: 48),
                   ),
                 ),

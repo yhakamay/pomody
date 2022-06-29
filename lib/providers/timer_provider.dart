@@ -5,12 +5,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final timerProvider =
     ChangeNotifierProvider<TimerController>((_) => TimerController());
 
+enum TimerMode {
+  workTimer,
+  breakTimer;
+
+  TimerMode toggle() {
+    if (this == TimerMode.workTimer) {
+      return TimerMode.breakTimer;
+    } else {
+      return TimerMode.workTimer;
+    }
+  }
+}
+
 class TimerController extends ChangeNotifier {
   final controller = CountDownController();
-  int duration = 25 * 60;
+  int workDuration = 25 * 60;
+  int breakDuration = 5 * 60;
+  TimerMode mode = TimerMode.workTimer;
 
   void start() {
-    controller.start();
+    controller.restart(
+      duration: mode == TimerMode.workTimer ? workDuration : breakDuration,
+    );
 
     controller.isStarted = true;
     controller.isPaused = false;
@@ -38,6 +55,8 @@ class TimerController extends ChangeNotifier {
   }
 
   void reset() {
+    toggleMode();
+
     controller.reset();
 
     controller.isStarted = false;
@@ -47,21 +66,25 @@ class TimerController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleMode() {
+    mode = mode.toggle();
+  }
+
   void reduceWork() {
-    if (duration < 15 * 60) {
+    if (workDuration < 15 * 60) {
       return;
     }
 
-    duration -= 5 * 60;
+    workDuration -= 5 * 60;
     notifyListeners();
   }
 
   void addWork() {
-    if (duration > 40 * 60) {
+    if (workDuration > 40 * 60) {
       return;
     }
 
-    duration += 5 * 60;
+    workDuration += 5 * 60;
     notifyListeners();
   }
 }
