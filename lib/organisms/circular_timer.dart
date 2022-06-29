@@ -18,7 +18,9 @@ class CircularTimer extends HookConsumerWidget {
       child: CircularCountDownTimer(
         controller: timer.controller,
         autoStart: false,
-        duration: timer.duration,
+        duration: timer.mode == TimerMode.workTimer
+            ? timer.workDuration
+            : timer.breakDuration,
         isReverse: true,
         isReverseAnimation: true,
         height: _size,
@@ -31,7 +33,7 @@ class CircularTimer extends HookConsumerWidget {
         strokeCap: StrokeCap.round,
         textStyle: _textStyle,
         onStart: _onStart,
-        onComplete: _onComplete,
+        onComplete: () => _onComplete(timer),
       ),
     );
   }
@@ -40,7 +42,8 @@ class CircularTimer extends HookConsumerWidget {
     // Nothing is planned for now
   }
 
-  void _onComplete() {
-    // TODO: Show a snackbar & ring a sound
+  void _onComplete(timer) {
+    timer.toggleMode();
+    timer.start();
   }
 }
