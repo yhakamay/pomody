@@ -36,25 +36,34 @@ class Settings extends HookConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      OutlinedButton(
-                        onPressed: timer.reduceWork,
-                        style: OutlinedButton.styleFrom(
-                          primary: Theme.of(context).colorScheme.error,
+                      SizedBox(
+                        width: 60,
+                        child: OutlinedButton(
+                          onPressed: timer.reduceWork,
+                          style: OutlinedButton.styleFrom(
+                            primary: Theme.of(context).colorScheme.error,
+                          ),
+                          child: const Icon(Icons.remove),
                         ),
-                        child: const Icon(Icons.remove),
                       ),
-                      const SizedBox(width: 24),
-                      Text(
-                        '${timer.duration ~/ 60}',
-                        style: const TextStyle(fontSize: 48),
-                      ),
-                      const SizedBox(width: 24),
-                      OutlinedButton(
-                        onPressed: timer.addWork,
-                        style: OutlinedButton.styleFrom(
-                          primary: Theme.of(context).colorScheme.primary,
+                      SizedBox(
+                        width: 120,
+                        child: Center(
+                          child: Text(
+                            '${timer.duration ~/ 60}',
+                            style: const TextStyle(fontSize: 48),
+                          ),
                         ),
-                        child: const Icon(Icons.add),
+                      ),
+                      SizedBox(
+                        width: 60,
+                        child: OutlinedButton(
+                          onPressed: timer.addWork,
+                          style: OutlinedButton.styleFrom(
+                            primary: Theme.of(context).colorScheme.primary,
+                          ),
+                          child: const Icon(Icons.add),
+                        ),
                       ),
                     ],
                   ),
