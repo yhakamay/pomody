@@ -20,8 +20,8 @@ enum TimerMode {
 
 class TimerController extends ChangeNotifier {
   final controller = CountDownController();
-  int workDuration = 5;
-  int breakDuration = 15;
+  int workDuration = 25 * 60;
+  int breakDuration = 5 * 60;
   TimerMode mode = TimerMode.workTimer;
 
   void start() {
