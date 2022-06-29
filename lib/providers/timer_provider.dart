@@ -7,7 +7,7 @@ final timerProvider =
 
 class TimerController extends ChangeNotifier {
   final controller = CountDownController();
-  final duration = 25 * 60;
+  int duration = 25 * 60;
 
   void start() {
     controller.start();
@@ -44,6 +44,24 @@ class TimerController extends ChangeNotifier {
     controller.isPaused = false;
     controller.isResumed = false;
 
+    notifyListeners();
+  }
+
+  void reduceWork() {
+    if (duration < 15 * 60) {
+      return;
+    }
+
+    duration -= 5 * 60;
+    notifyListeners();
+  }
+
+  void addWork() {
+    if (duration > 40 * 60) {
+      return;
+    }
+
+    duration += 5 * 60;
     notifyListeners();
   }
 }
