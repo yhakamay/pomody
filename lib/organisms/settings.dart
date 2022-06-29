@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../molecules/break_duration_card.dart';
-import '../molecules/start_break_after_work_card.dart';
 import '../molecules/work_duration_card.dart';
 
 class Settings extends StatelessWidget {
@@ -15,7 +14,7 @@ class Settings extends StatelessWidget {
       children: const [
         Center(child: WorkDurationCard()),
         Center(child: BreakDurationCard()),
-        Center(child: StartBreakAfterWorkCard()),
+        //Center(child: StartBreakAfterWorkCard()),
       ],
     );
   }
