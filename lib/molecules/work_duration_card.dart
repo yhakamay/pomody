@@ -15,48 +15,26 @@ class WorkDurationCard extends HookConsumerWidget {
 
     return OutlinedCard(
       width: 300,
-      height: 120,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      height: 72,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Work',
-            style: TextStyle(fontSize: 20),
+          const SizedBox(width: 8),
+          Text(
+            'Work session',
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 60,
-                child: OutlinedButton(
-                  onPressed: timer.reduceWork,
-                  style: OutlinedButton.styleFrom(
-                    primary: Theme.of(context).colorScheme.error,
-                  ),
-                  child: const Icon(Icons.remove),
-                ),
-              ),
-              SizedBox(
-                width: 120,
-                child: Center(
-                  child: Text(
-                    '${timer.workDuration ~/ 60}',
-                    style: const TextStyle(fontSize: 48),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 60,
-                child: OutlinedButton(
-                  onPressed: timer.addWork,
-                  style: OutlinedButton.styleFrom(
-                    primary: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: const Icon(Icons.add),
-                ),
-              ),
+          const SizedBox(width: 16),
+          DropdownButton<int>(
+            value: timer.workDuration ~/ 60,
+            items: const [
+              DropdownMenuItem(value: 15, child: Text('15 min')),
+              DropdownMenuItem(value: 25, child: Text('25 min')),
+              DropdownMenuItem(value: 45, child: Text('45 min')),
             ],
+            onChanged: (int? value) => timer.setWorkDuration(value! * 60),
           ),
+          const SizedBox(width: 8),
         ],
       ),
     );

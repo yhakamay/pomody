@@ -24,6 +24,16 @@ class TimerController extends ChangeNotifier {
   int breakDuration = 5 * 60;
   TimerMode mode = TimerMode.workTimer;
 
+  void setWorkDuration(int newDuration) {
+    workDuration = newDuration;
+    notifyListeners();
+  }
+
+  void setBreakDuration(int newDuration) {
+    breakDuration = newDuration;
+    notifyListeners();
+  }
+
   void start() {
     controller.restart(
       duration: mode == TimerMode.workTimer ? workDuration : breakDuration,
@@ -68,23 +78,5 @@ class TimerController extends ChangeNotifier {
 
   void toggleMode() {
     mode = mode.toggle();
-  }
-
-  void reduceWork() {
-    if (workDuration < 15 * 60) {
-      return;
-    }
-
-    workDuration -= 5 * 60;
-    notifyListeners();
-  }
-
-  void addWork() {
-    if (workDuration > 40 * 60) {
-      return;
-    }
-
-    workDuration += 5 * 60;
-    notifyListeners();
   }
 }
