@@ -11,7 +11,7 @@ class FeedbackFAB extends StatelessWidget {
     return FloatingActionButton.extended(
       onPressed: () {
         launchUrl(
-          Uri.parse('https://github.com/yhakamay/pomodo/issues'),
+          Uri.parse('https://github.com/yhakamay/pomody/issues'),
         );
       },
       label: const Text('Give Feedback'),

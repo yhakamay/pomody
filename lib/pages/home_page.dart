@@ -23,7 +23,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('pomodo'),
+        title: const Text('pomody'),
       ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) => setState(() {
