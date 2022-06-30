@@ -1,4 +1,4 @@
-# pomodo
+# pomody
 
 A new Flutter project.
 

@@ -2,7 +2,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.yhakamay.pomodo">
     <application
-            android:label="pomodo"
+            android:label="pomody"
             android:name="${applicationName}"
             android:icon="@mipmap/ic_launcher">
         <activity

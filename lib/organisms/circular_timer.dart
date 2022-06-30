@@ -51,7 +51,7 @@ class CircularTimer extends HookConsumerWidget {
 
   Future<void> _notify(TimerMode mode) async {
     final flnp = FlutterLocalNotificationsPlugin();
-    const title = 'Pomodo';
+    const title = 'pomody';
     String body =
         mode == TimerMode.workTimer ? 'Time for a break!' : 'Time to work!';
 
