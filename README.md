@@ -1,4 +1,4 @@
-# pomodo
+# pomody
 
 pomodo is a super simple timer that uses pomodoro-technique. 
 

@@ -1,4 +1,4 @@
-name: pomodo
+name: pomody
 description: A new Flutter project.
 
 publish_to: 'none'
@@ -11,11 +11,23 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  circular_countdown_timer: ^0.2.2
+  url_launcher: ^6.1.4
+  flutter_riverpod: ^1.0.4
+  hooks_riverpod: ^1.0.4
+  flutter_local_notifications: ^9.6.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.9.3
+
+flutter_icons:
+  android: false
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icons/icon.png"
 
 flutter:
   uses-material-design: true
