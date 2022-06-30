@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'pages/home_page.dart';
 import 'providers/timer_provider.dart';
 
-void main() {
+final flnp = FlutterLocalNotificationsPlugin();
+const iOSInitSettings = IOSInitializationSettings(
+  requestSoundPermission: true,
+  requestBadgePermission: false,
+  requestAlertPermission: true,
+);
+const initSettings = InitializationSettings(iOS: iOSInitSettings);
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await flnp.initialize(initSettings);
+
   runApp(
     const ProviderScope(
       child: MyApp(),
