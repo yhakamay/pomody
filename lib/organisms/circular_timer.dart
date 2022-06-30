@@ -1,5 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers/timer_provider.dart';
@@ -42,8 +43,26 @@ class CircularTimer extends HookConsumerWidget {
     // Nothing is planned for now
   }
 
-  void _onComplete(timer) {
+  Future<void> _onComplete(timer) async {
+    _notify(timer.mode);
     timer.toggleMode();
     timer.start();
+  }
+
+  Future<void> _notify(TimerMode mode) async {
+    final flnp = FlutterLocalNotificationsPlugin();
+    const title = 'Pomodo';
+    String body =
+        mode == TimerMode.workTimer ? 'Time for a break!' : 'Time to work!';
+
+    await flnp.initialize(
+        const InitializationSettings(iOS: IOSInitializationSettings()));
+
+    flnp.show(
+        0,
+        title,
+        body,
+        const NotificationDetails(
+            iOS: IOSNotificationDetails(presentAlert: true)));
   }
 }
