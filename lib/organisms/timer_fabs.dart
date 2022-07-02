@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../molecules/reset_button.dart';
 import '../molecules/start_pause_button.dart';
 import '../providers/timer_provider.dart';
 
-class TimerFABs extends StatelessWidget {
+class TimerFABs extends HookConsumerWidget {
   const TimerFABs({
     Key? key,
-    required this.timer,
   }) : super(key: key);
 
-  final TimerController timer;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final timer = ref.watch(timerProvider);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
