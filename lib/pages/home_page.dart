@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../molecules/feedback_fab.dart';
 import '../organisms/circular_timer.dart';
 import '../organisms/settings.dart';
 import '../organisms/timer_fabs.dart';
-import '../providers/timer_provider.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
+class _HomePageState extends State<HomePage> {
   int _pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    final timer = ref.watch(timerProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('pomody'),
@@ -43,12 +39,15 @@ class _HomePageState extends ConsumerState<HomePage> {
           )
         ],
       ),
-      body: [
-        const CircularTimer(),
-        const Settings(),
-      ][_pageIndex],
+      body: IndexedStack(
+        index: _pageIndex,
+        children: const [
+          CircularTimer(),
+          Settings(),
+        ],
+      ),
       floatingActionButton:
-          _pageIndex == 0 ? TimerFABs(timer: timer) : const FeedbackFAB(),
+          _pageIndex == 0 ? const TimerFABs() : const FeedbackFAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
